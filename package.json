@@ -1,0 +1,20 @@
+{
+  "name": "react-ajax",
+  "version": "1.1.2",
+  "description": "React Ajax module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/dragfire/react-ajax.git"
+  },
+  "keywords": [
+    "ajax",
+    "react",
+    "react-native"
+  ],
+  "author": "dragfire",
+  "license": "ISC"
+}
