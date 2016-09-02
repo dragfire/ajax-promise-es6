@@ -1,8 +1,10 @@
-# react-ajax
-Promise based Ajax module for react/react-native
+# ajax-promise-es6
+Promise based Ajax module for react/react-native apps.
 
 ##Installation:
-```npm i -S react-ajax```
+```npm i -S ajax-promise-es6```
+or
+```npm install --save ajax-promise-es6```
 
 ## Usage:
 
