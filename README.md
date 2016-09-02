@@ -13,6 +13,8 @@ or
 // body   : {type: 'object'}
 // headers: {type: 'object', optional: 'true'}
 
+import Ajax from 'ajax-promise-es6' 
+
 Ajax.post(url, body, headers).then((res)=> {
             // no need for JSON.parse(res);  
             console.log(res);  
