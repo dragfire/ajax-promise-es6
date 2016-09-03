@@ -1,6 +1,7 @@
 /**
  * Created by dragfire on 02-09-2016.
  */
+'use strict';
 
 class XHR {
     static Obj() {
