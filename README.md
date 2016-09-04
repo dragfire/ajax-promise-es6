@@ -3,7 +3,7 @@ Promise based Ajax module for react/react-native apps.
 
 ##Installation:
 ```npm i -S ajax-promise-es6```
-or
+or<br/>
 ```npm install --save ajax-promise-es6```
 
 ## Usage:
@@ -15,13 +15,11 @@ or
 
 import Ajax from 'ajax-promise-es6' 
 
-Ajax.post(url, body, headers).then((res)=> {
-            // no need for JSON.parse(res);  
+Ajax.post(url, body, headers).then((res)=> {  
             console.log(res);  
   });
   
-Ajax.get(url, body, headers).then((res)=> {
-            // no need for JSON.parse(res);  
+Ajax.get(url, body, headers).then((res)=> {  
             console.log(res);  
   });
   
@@ -38,7 +36,7 @@ Ajax.post(url,
                 'Cookie': 'foo=bar'  // headers
               }
     ).then((res)=> {
-            // no need for JSON.parse(res);  
+            // use JSON.parse(res);  
             console.log(res);  
   });
 ```
