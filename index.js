@@ -52,7 +52,7 @@ class XHR {
         return (new Promise((resolve, reject) => {
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
-                    return resolve(JSON.parse(xhr.responseText));
+                    return resolve(xhr.responseText);
                 }
             };
         }));
