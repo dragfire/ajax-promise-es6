@@ -1,6 +1,6 @@
 {
   "name": "ajax-promise-es6",
-  "version": "2.1.2",
+  "version": "3.1.0",
   "description": "Promise based Ajax module for react/react-native apps.",
   "main": "index.js",
   "scripts": {

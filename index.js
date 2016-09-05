@@ -8,7 +8,7 @@ class XHR {
         if (typeof XMLHttpRequest !== 'undefined') {
             return new XMLHttpRequest();
         }
-        
+
         var versions = [
             "MSXML2.XmlHttp.6.0",
             "MSXML2.XmlHttp.5.0",
@@ -17,44 +17,63 @@ class XHR {
             "MSXML2.XmlHttp.2.0",
             "Microsoft.XmlHttp"
         ];
-        
+
         var xhr;
         for (var i = 0; i < versions.length; i++) {
             try {
                 xhr = new ActiveXObject(versions[i]);
                 break;
-            }
-            catch (e) {
-            }
+            } catch (e) {}
         }
+        var XHRObj = require('xmlhttprequest').XMLHttpRequest;
+        if (!xhr) {
+            xhr = new XHRObj();
+        }
+
         return xhr;
     }
-    
+
     static send(url, method, data, headers, async) {
         if (async === undefined) {
             async = true;
         }
-        
-        var xhr = XHR.Obj();
-        
-        xhr.open(method, url, async);
-        if (headers) {
-            for (var key in headers) {
-                if (headers.hasOwnProperty(key)) {
-                    xhr.setRequestHeader(key, headers[key]);
+
+        return (new Promise((resolve, reject) => {
+            var xhr = XHR.Obj();
+
+            xhr.open(method, url, async);
+
+            if (headers) {
+                for (var key in headers) {
+                    if (headers.hasOwnProperty(key)) {
+                        xhr.setRequestHeader(key, headers[key]);
+                    }
                 }
             }
-        }
-        if (method == 'POST') {
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        }
-        xhr.send(data);
-        return (new Promise((resolve, reject) => {
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    return resolve(xhr.responseText);
+
+            if (method == 'POST') {
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            }
+
+            xhr.onload = function() {
+                if (this.status >= 200 && this.status < 300) {
+                    resolve(xhr.response);
+                } else {
+                    reject({
+                        status: this.status,
+                        statusText: xhr.statusText
+                    });
                 }
             };
+
+            xhr.onerror = function() {
+                reject({
+                    status: this.status,
+                    statusText: xhr.statusText
+                });
+            };
+
+            xhr.send(data);
         }));
     }
 }
@@ -67,7 +86,7 @@ export default class Ajax {
         }
         return XHR.send(url + (query.length ? '?' + query.join('&') : ''), 'GET', null, headers, async);
     }
-    
+
     static post(url, data, headers, async) {
         var query = [];
         for (var key in data) {
