@@ -25,10 +25,6 @@ class XHR {
                 break;
             } catch (e) {}
         }
-        var XHRObj = require('xmlhttprequest').XMLHttpRequest;
-        if (!xhr) {
-            xhr = new XHRObj();
-        }
 
         return xhr;
     }
