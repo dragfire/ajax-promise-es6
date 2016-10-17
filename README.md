@@ -7,6 +7,7 @@ Promise based Ajax module for react/react-native apps.
 ## Usage:
 
 ```javascript
+// default timeout is 3000ms
 // url    : {type: 'string'}
 // body   : {type: 'object'}
 // headers: {type: 'object', optional: 'true'}

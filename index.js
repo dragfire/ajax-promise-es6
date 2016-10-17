@@ -23,7 +23,8 @@ class XHR {
             try {
                 xhr = new ActiveXObject(versions[i]);
                 break;
-            } catch (e) {}
+            } catch (e) {
+            }
         }
 
         return xhr;
@@ -36,6 +37,8 @@ class XHR {
 
         return (new Promise((resolve, reject) => {
             var xhr = XHR.Obj();
+
+            xhr.timeout = 3000; // 3s timeout
 
             xhr.open(method, url, async);
 
@@ -51,20 +54,27 @@ class XHR {
                 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             }
 
-            xhr.onload = function() {
+            xhr.onload = function () {
                 if (this.status >= 200 && this.status < 300) {
                     resolve(xhr.response);
                 } else {
                     reject({
-                        status: this.status,
+                        status    : this.status,
                         statusText: xhr.statusText
                     });
                 }
             };
 
-            xhr.onerror = function() {
+            xhr.onerror = function () {
                 reject({
-                    status: this.status,
+                    status    : this.status,
+                    statusText: xhr.statusText
+                });
+            };
+
+            xhr.ontimeout = function () {
+                reject({
+                    status    : this.status,
                     statusText: xhr.statusText
                 });
             };
