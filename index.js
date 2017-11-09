@@ -3,13 +3,7 @@
  */
 'use strict';
 
-class XHR {
-    static Obj() {
-        if (typeof XMLHttpRequest !== 'undefined') {
-            return new XMLHttpRequest();
-        }
-
-        var versions = [
+const versions = [
             "MSXML2.XmlHttp.6.0",
             "MSXML2.XmlHttp.5.0",
             "MSXML2.XmlHttp.4.0",
@@ -18,10 +12,16 @@ class XHR {
             "Microsoft.XmlHttp"
         ];
 
-        var xhr;
-        for (var i = 0; i < versions.length; i++) {
+class XHR {
+    static Obj() {
+        if (typeof XMLHttpRequest !== 'undefined') {
+            return new XMLHttpRequest();
+        }
+
+        let xhr;
+        for (let version of versions) {
             try {
-                xhr = new ActiveXObject(versions[i]);
+                xhr = new ActiveXObject(version);
                 break;
             } catch (e) {
             }
@@ -36,14 +36,14 @@ class XHR {
         }
 
         return (new Promise((resolve, reject) => {
-            var xhr = XHR.Obj();
+            let xhr = XHR.Obj();
 
             xhr.timeout = 3000; // 3s timeout
 
             xhr.open(method, url, async);
 
             if (headers) {
-                for (var key in headers) {
+                for (let key in headers) {
                     if (headers.hasOwnProperty(key)) {
                         xhr.setRequestHeader(key, headers[key]);
                     }
@@ -86,16 +86,16 @@ class XHR {
 
 export default class Ajax {
     static get(url, data, headers, async) {
-        var query = [];
-        for (var key in data) {
+        let query = [];
+        for (let key in data) {
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
         }
         return XHR.send(url + (query.length ? '?' + query.join('&') : ''), 'GET', null, headers, async);
     }
 
     static post(url, data, headers, async) {
-        var query = [];
-        for (var key in data) {
+        let query = [];
+        for (let key in data) {
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
         }
         return XHR.send(url, 'POST', query.join('&'), headers, async);
